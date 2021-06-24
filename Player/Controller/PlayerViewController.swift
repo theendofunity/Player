@@ -25,13 +25,36 @@ class PlayerViewController: UIViewController {
     
     let playlist = UIButton()
     
+    var songs = [Song]()
+    var currentSongNumber = 0
+    
+//    MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
     }
 
+//    MARK: - Songs loading
+    
+    func configurateWith(songNumber: Int) {
+        
+        if songNumber > songs.count {
+            return
+        }
+        
+        currentSongNumber = songNumber
+        
+        let song = songs[currentSongNumber]
+        
+        titleLabel.text = song.title
+        artistLabel.text = song.artist
+        albumLabel.text = song.album
+        cover.image = UIImage(named: song.cover)
+    }
 
+//    MARK: - UI setup
+    
     private func setupLayout() {
         view.backgroundColor = .white
         
@@ -100,12 +123,22 @@ class PlayerViewController: UIViewController {
         let playlistImage = UIImage(systemName: "text.insert", withConfiguration: playlistConfiguration)
         playlist.setImage(playlistImage, for: .normal)
         playlist.translatesAutoresizingMaskIntoConstraints = false
+        playlist.addTarget(self, action: #selector(openPlaylist), for: .touchUpInside)
         
         view.addSubview(playlist)
         
-        
         playlist.topAnchor.constraint(equalTo: buttonsStack.bottomAnchor, constant: 20).isActive = true
         playlist.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+    }
+    
+    @objc private func openPlaylist() {
+        let playlistViewController = PlaylistTableViewController()
+        playlistViewController.completion = { [weak self] songs, currentNumber in
+            self?.songs = songs
+            self?.configurateWith(songNumber: currentNumber)
+        }
+        
+        self.navigationController?.pushViewController(playlistViewController, animated: true)
     }
 }
 
