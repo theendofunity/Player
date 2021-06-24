@@ -17,7 +17,12 @@ class PlaylistTableViewController: UITableViewController {
 
         self.tableView.register(PlaylistTableViewCell.self, forCellReuseIdentifier: PlaylistTableViewCell.identifier)
         
-        songs = SongLoader.load()
+        SongLoader.shared.load { [weak self] songs in
+            self?.songs = songs
+            DispatchQueue.main.async     {
+                self?.tableView.reloadData()
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -40,6 +45,10 @@ class PlaylistTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         completion?(songs, indexPath.row)
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
 }

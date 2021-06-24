@@ -50,21 +50,21 @@ class PlayerViewController: UIViewController {
         titleLabel.text = song.title
         artistLabel.text = song.artist
         albumLabel.text = song.album
-        cover.image = UIImage(named: song.cover)
+        cover.image = song.cover
     }
 
 //    MARK: - UI setup
     
     private func setupLayout() {
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         
         cover.translatesAutoresizingMaskIntoConstraints = false
         cover.image = UIImage(named: "coverPlaceholder")
         view.addSubview(cover)
         
         cover.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        cover.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        cover.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        cover.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        cover.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         cover.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
         titleLabel.text = "Title"
@@ -79,7 +79,7 @@ class PlayerViewController: UIViewController {
         view.addSubview(titleStack)
         
         titleStack.topAnchor.constraint(equalTo: cover.bottomAnchor, constant: 20).isActive = true
-        titleStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        titleStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         
         currentTime.text = "0:00"
         totalTime.text = "0:00"
@@ -128,7 +128,7 @@ class PlayerViewController: UIViewController {
         view.addSubview(playlist)
         
         playlist.topAnchor.constraint(equalTo: buttonsStack.bottomAnchor, constant: 20).isActive = true
-        playlist.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        playlist.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
     }
     
     @objc private func openPlaylist() {

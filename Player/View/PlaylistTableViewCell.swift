@@ -34,25 +34,37 @@ class PlaylistTableViewCell: UITableViewCell {
     func configurate(with song: Song) {
         self.song = song
                 
-        cover.image = UIImage(named: song.cover)
+        cover.image = song.cover
         titleLabel.text = song.title
         artistLabel.text = song.artist
     }
     
     private func setupLayout() {
+        
         cover.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(cover)
+        cover.widthAnchor.constraint(equalToConstant: 130).isActive = true
         
-        cover.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        cover.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
-        cover.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        
-        let titleStack = UIStackView(arrangedSubviews: [titleLabel, artistLabel])
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        artistLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let titleStack = UIStackView(arrangedSubviews: [titleLabel, artistLabel, ])
         titleStack.translatesAutoresizingMaskIntoConstraints = false
         titleStack.axis = .vertical
-        titleStack.spacing = 10
-        contentView.addSubview(titleStack)
+        titleStack.alignment = .top
+        titleStack.distribution = .fillProportionally
+        titleStack.spacing = 20
         
-        titleStack.leftAnchor.constraint(equalTo: cover.rightAnchor, constant: 10).isActive = true
+        let stackView = UIStackView(arrangedSubviews: [cover, titleStack])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        
+        contentView.addSubview(stackView)
+
+        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
+        
     }
 }
