@@ -27,6 +27,7 @@ class PlayerViewController: UIViewController {
     
     var songs = [Song]()
     var currentSongNumber = 0
+    let player = Player()
     
 //    MARK: - Life cycle
     
@@ -107,6 +108,10 @@ class PlayerViewController: UIViewController {
         forward.setImage(forwardImage, for: .normal)
         forward.translatesAutoresizingMaskIntoConstraints = false
 
+        play.addTarget(self, action: #selector(playPause), for: .touchUpInside)
+        backward.addTarget(self, action: #selector(previousSong), for: .touchUpInside)
+        forward.addTarget(self, action: #selector(nextSong), for: .touchUpInside)
+        
         let buttonsStack = UIStackView(arrangedSubviews: [backward, play, forward])
         buttonsStack.axis = .horizontal
         buttonsStack.alignment = .fill
@@ -136,9 +141,63 @@ class PlayerViewController: UIViewController {
         playlistViewController.completion = { [weak self] songs, currentNumber in
             self?.songs = songs
             self?.configurateWith(songNumber: currentNumber)
+            self?.playAudio()
         }
         
         self.navigationController?.pushViewController(playlistViewController, animated: true)
+    }
+    
+    private func setupPlayPauseButtonImage() {
+        let isPlaying = player.isPlaying()
+        
+        let configuration = UIImage.SymbolConfiguration (pointSize: 50.0)
+        let image: UIImage?
+        
+        if isPlaying {
+            image = UIImage(systemName: "pause.fill", withConfiguration: configuration)
+        } else {
+            image = UIImage(systemName: "play.fill", withConfiguration: configuration)
+        }
+        play.setImage(image, for: .normal)
+    }
+    
+    @objc private func playPause() {
+        player.playPause()
+        setupPlayPauseButtonImage()
+    }
+    
+    @objc private func nextSong() {
+        if songs.isEmpty {
+            return
+        }
+        if currentSongNumber == songs.count - 1 {
+            currentSongNumber = 0
+        } else {
+            currentSongNumber += 1
+        }
+        
+        configurateWith(songNumber: currentSongNumber)
+        playAudio()
+    }
+    
+    @objc private func previousSong() {
+        if songs.isEmpty {
+            return
+        }
+        if currentSongNumber == 0 {
+            currentSongNumber = songs.count - 1
+        } else {
+            currentSongNumber -= 1
+        }
+        
+        configurateWith(songNumber: currentSongNumber)
+        playAudio()
+    }
+    
+    private func playAudio() {
+        let song = songs[currentSongNumber]
+        player.playAudio(with: song.url)
+        setupPlayPauseButtonImage()
     }
 }
 

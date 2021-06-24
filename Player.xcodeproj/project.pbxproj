@@ -11,6 +11,7 @@
 		D800F4F42684BA0D0001FABA /* PlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800F4F32684BA0D0001FABA /* PlaylistTableViewController.swift */; };
 		D800F4F62684BA1F0001FABA /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800F4F52684BA1F0001FABA /* PlaylistTableViewCell.swift */; };
 		D800F4F92684BD0F0001FABA /* SongLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800F4F82684BD0F0001FABA /* SongLoader.swift */; };
+		D8196267268507A20084F109 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8196266268507A20084F109 /* Player.swift */; };
 		D833473526839838008306FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833473426839838008306FF /* AppDelegate.swift */; };
 		D833473726839838008306FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833473626839838008306FF /* SceneDelegate.swift */; };
 		D833473926839838008306FF /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D833473826839838008306FF /* PlayerViewController.swift */; };
@@ -23,6 +24,7 @@
 		D800F4F32684BA0D0001FABA /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
 		D800F4F52684BA1F0001FABA /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		D800F4F82684BD0F0001FABA /* SongLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongLoader.swift; sourceTree = "<group>"; };
+		D8196266268507A20084F109 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		D833473126839838008306FF /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D833473426839838008306FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D833473626839838008306FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			children = (
 				D833473826839838008306FF /* PlayerViewController.swift */,
 				D800F4F32684BA0D0001FABA /* PlaylistTableViewController.swift */,
+				D8196266268507A20084F109 /* Player.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				D800F4F22684B8D10001FABA /* Song.swift in Sources */,
 				D833473926839838008306FF /* PlayerViewController.swift in Sources */,
 				D833473526839838008306FF /* AppDelegate.swift in Sources */,
+				D8196267268507A20084F109 /* Player.swift in Sources */,
 				D833473726839838008306FF /* SceneDelegate.swift in Sources */,
 				D800F4F62684BA1F0001FABA /* PlaylistTableViewCell.swift in Sources */,
 				D800F4F92684BD0F0001FABA /* SongLoader.swift in Sources */,

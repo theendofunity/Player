@@ -30,7 +30,6 @@ class SongLoader {
                     for item in items {
                         guard let song = Song(from: item) else { continue }
                         self.songs.append(song)
-                        print(song)
                     }
                     completion(self.songs)
                 }
