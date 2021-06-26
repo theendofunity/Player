@@ -29,6 +29,8 @@ class PlayerViewController: UIViewController {
     var currentSongNumber = 0
     let player = Player()
     
+    var updateTimer: Timer?
+    
 //    MARK: - Life cycle
     
     override func viewDidLoad() {
@@ -52,8 +54,8 @@ class PlayerViewController: UIViewController {
         artistLabel.text = song.artist
         albumLabel.text = song.album
         cover.image = song.cover
-        
         totalTime.text = song.duration.stringFormatted()
+        timeline.maximumValue = Float(song.duration)
     }
 //    MARK: - UI setup
     
@@ -163,6 +165,13 @@ class PlayerViewController: UIViewController {
     @objc private func playPause() {
         player.playPause()
         setupPlayPauseButtonImage()
+        
+        let isPlaying = player.isPlaying()
+        if isPlaying {
+            updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        } else {
+            updateTimer?.invalidate()
+        }
     }
     
     @objc private func nextSong() {
@@ -197,6 +206,17 @@ class PlayerViewController: UIViewController {
         let song = songs[currentSongNumber]
         player.playAudio(with: song.url)
         setupPlayPauseButtonImage()
+        
+        updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func updateTime() {
+        DispatchQueue.main.async {
+            let currentTimeValue = self.player.currentTime()
+            self.currentTime.text = currentTimeValue.stringFormatted()
+            
+            self.timeline.setValue(Float(currentTimeValue), animated: true)
+        }
     }
 }
 
