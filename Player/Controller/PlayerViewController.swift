@@ -52,13 +52,12 @@ class PlayerViewController: UIViewController {
         artistLabel.text = song.artist
         albumLabel.text = song.album
         cover.image = song.cover
+        
+        totalTime.text = song.duration.stringFormatted()
     }
-
 //    MARK: - UI setup
     
     private func setupLayout() {
-//        view.backgroundColor = .white
-        
         cover.translatesAutoresizingMaskIntoConstraints = false
         cover.image = UIImage(named: "coverPlaceholder")
         view.addSubview(cover)

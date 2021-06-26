@@ -12,6 +12,7 @@ struct Song {
     let title: String
     let artist: String
     let album:  String
+    let duration: TimeInterval
     let cover: UIImage?
     let url: URL
     
@@ -26,6 +27,7 @@ struct Song {
         self.title = title
         self.artist = artist
         self.album = album
+        self.duration = mediaItem.playbackDuration
         self.url = url
         self.cover = cover.image(at: CGSize(width: 200, height: 200))
     }
