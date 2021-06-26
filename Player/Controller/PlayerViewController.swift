@@ -35,6 +35,7 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Now playing"
         setupLayout()
     }
 
@@ -57,6 +58,7 @@ class PlayerViewController: UIViewController {
         totalTime.text = song.duration.stringFormatted()
         timeline.maximumValue = Float(song.duration)
     }
+    
 //    MARK: - UI setup
     
     private func setupLayout() {
@@ -70,6 +72,7 @@ class PlayerViewController: UIViewController {
         cover.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
         titleLabel.text = "Title"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
         albumLabel.text = "Album"
         artistLabel.text = "Artist"
         let titleStack = UIStackView(arrangedSubviews: [titleLabel, artistLabel, albumLabel])
@@ -80,20 +83,20 @@ class PlayerViewController: UIViewController {
         
         view.addSubview(titleStack)
         
-        titleStack.topAnchor.constraint(equalTo: cover.bottomAnchor, constant: 20).isActive = true
+        titleStack.topAnchor.constraint(equalTo: cover.bottomAnchor, constant: 30).isActive = true
         titleStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         
-        currentTime.text = "0:00"
-        totalTime.text = "0:00"
+        currentTime.text = "00:00"
+        totalTime.text = "00:00"
         timeline.isUserInteractionEnabled = false
         let timelineStack = UIStackView(arrangedSubviews: [currentTime, timeline, totalTime])
         timelineStack.translatesAutoresizingMaskIntoConstraints = false
         timelineStack.axis = .horizontal
-        timelineStack.spacing = 10
+        timelineStack.spacing = 20
         
         view.addSubview(timelineStack)
         
-        timelineStack.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 20).isActive = true
+        timelineStack.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 30).isActive = true
         timelineStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         timelineStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
 
@@ -122,7 +125,7 @@ class PlayerViewController: UIViewController {
         
         view.addSubview(buttonsStack)
         
-        buttonsStack.topAnchor.constraint(equalTo: timelineStack.bottomAnchor, constant: 20).isActive = true
+        buttonsStack.topAnchor.constraint(equalTo: timelineStack.bottomAnchor, constant: 30).isActive = true
         buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         let playlistConfiguration = UIImage.SymbolConfiguration (pointSize: 20.0)
@@ -134,18 +137,9 @@ class PlayerViewController: UIViewController {
         view.addSubview(playlist)
         
         playlist.topAnchor.constraint(equalTo: buttonsStack.bottomAnchor, constant: 20).isActive = true
+        playlist.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20).isActive = true
+
         playlist.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-    }
-    
-    @objc private func openPlaylist() {
-        let playlistViewController = PlaylistTableViewController()
-        playlistViewController.completion = { [weak self] songs, currentNumber in
-            self?.songs = songs
-            self?.configurateWith(songNumber: currentNumber)
-            self?.playAudio()
-        }
-        
-        self.navigationController?.pushViewController(playlistViewController, animated: true)
     }
     
     private func setupPlayPauseButtonImage() {
@@ -161,6 +155,19 @@ class PlayerViewController: UIViewController {
         }
         play.setImage(image, for: .normal)
     }
+    
+    @objc private func openPlaylist() {
+        let playlistViewController = PlaylistTableViewController()
+        playlistViewController.completion = { [weak self] songs, currentNumber in
+            self?.songs = songs
+            self?.configurateWith(songNumber: currentNumber)
+            self?.playAudio()
+        }
+        
+        self.navigationController?.pushViewController(playlistViewController, animated: true)
+    }
+    
+//    MARK: - Player control
     
     @objc private func playPause() {
         player.playPause()

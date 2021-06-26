@@ -16,6 +16,7 @@ class PlaylistTableViewCell: UITableViewCell {
     let cover = UIImageView()
     let titleLabel = UILabel()
     let artistLabel = UILabel()
+    let albumLabel = UILabel()
     
 //    MARK: - Initializers
     
@@ -37,6 +38,7 @@ class PlaylistTableViewCell: UITableViewCell {
         cover.image = song.cover
         titleLabel.text = song.title
         artistLabel.text = song.artist
+        albumLabel.text = song.album
     }
     
     private func setupLayout() {
@@ -46,8 +48,9 @@ class PlaylistTableViewCell: UITableViewCell {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        let titleStack = UIStackView(arrangedSubviews: [titleLabel, artistLabel, ])
+        albumLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleStack = UIStackView(arrangedSubviews: [titleLabel, artistLabel, albumLabel])
         titleStack.translatesAutoresizingMaskIntoConstraints = false
         titleStack.axis = .vertical
         titleStack.alignment = .top
@@ -65,6 +68,5 @@ class PlaylistTableViewCell: UITableViewCell {
         stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
-        
     }
 }
